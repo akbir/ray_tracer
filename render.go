@@ -4,7 +4,7 @@ import (
 	"image"
 	"math"
 	"math/rand"
-	p "ray_tracer_fun/primatives"
+	p "ray_tracer/primatives"
 	"runtime"
 	"sync"
 	"time"
@@ -39,14 +39,14 @@ func background(r p.Ray) p.Vector {
 	return white.MultiplyScalar(1.0 - t).Add(blue.MultiplyScalar(t))
 }
 
-func sample(world *p.World, camera *p.Camera, i, j int, rand1 *rand.Rand) p.Vector {
+func sample(world *p.World, camera *p.Camera, i, j int, rand *rand.Rand) p.Vector {
 	rgb:= p.Vector{}
 	for s := 0; s < ns; s++{
 		u := (float64(i) + rand.Float64()) / float64(nx)
 		v := (float64(j) + rand.Float64())/ float64(ny)
 
 		ray := camera.RayAt(u,v)
-		worldColor := color(ray, world, 0, rand1)
+		worldColor := color(ray, world, 0, rand)
 		rgb = rgb.Add(worldColor)
 
 	}

@@ -22,7 +22,7 @@ func (u Vector) RGBA() (r, g, b, a uint32) {
 
 var UnitVector = Vector{1, 1, 1}
 
-func VectorInUnitSphere(rand1 *rand.Rand) Vector {
+func VectorInUnitSphere(rand *rand.Rand) Vector {
 	for {
 		r := Vector{rand.Float64(), rand.Float64(), rand.Float64()}
 		p := r.MultiplyScalar(2.0).Subtract(UnitVector)

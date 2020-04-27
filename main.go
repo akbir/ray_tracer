@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	p "ray_tracer_fun/primatives"
+	p "ray_tracer/primatives"
 	"strings"
 	"time"
 )
