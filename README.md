@@ -35,10 +35,8 @@ Currently, the environment supports spheres, aliasing and 3 types of materials:
 * Metallic
 * Dialectric
 
-To set up a new object, go to `cmd/ray_tracer/main.go` and specify its properties within the `createWorld` method.
+To set up a new object, go to `configs/config.json` and specify the properties there.
 
-Currently you'll need to rebuild the package everytime you change the environment with:
- 
  ```shell script
 go build github.com/am-khan/ray_tracer/cmd/ray_tracer
 ```
