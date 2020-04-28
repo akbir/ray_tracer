@@ -3,12 +3,10 @@ package primatives
 import (
 	"math"
 	"math/rand"
-
 )
 
 type Vector struct {
 	X, Y, Z float64
-
 }
 
 func (u Vector) RGBA() (r, g, b, a uint32) {
@@ -33,7 +31,7 @@ func VectorInUnitSphere(rand *rand.Rand) Vector {
 }
 
 func (u Vector) Add(v Vector) Vector {
-	return Vector{u.X + v.X, u.Y + v.Y, u.Z+ v.Z}
+	return Vector{u.X + v.X, u.Y + v.Y, u.Z + v.Z}
 }
 
 func (u Vector) Subtract(v Vector) Vector {
@@ -48,28 +46,26 @@ func (u Vector) Multiply(v Vector) Vector {
 	return Vector{u.X * v.X, u.Y * v.Y, u.Z * v.Z}
 }
 
-
 func (u Vector) Length() float64 {
 	return math.Sqrt(u.DotProduct(u))
 }
 
 func (u Vector) Normalise() Vector {
 	l := u.Length()
-	return Vector{u.X /l, u.Y /l, u.Z /l}
+	return Vector{u.X / l, u.Y / l, u.Z / l}
 }
 
 func (u Vector) AddScalar(a float64) Vector {
-	return Vector{u.X +a, u.Y +a, u.Z +a}
+	return Vector{u.X + a, u.Y + a, u.Z + a}
 }
 
 func (u Vector) MultiplyScalar(a float64) Vector {
-	return Vector{u.X *a, u.Y *a, u.Z *a}
+	return Vector{u.X * a, u.Y * a, u.Z * a}
 }
 
 func (u Vector) DivideScalar(a float64) Vector {
-	return Vector{u.X /a, u.Y /a, u.Z /a}
+	return Vector{u.X / a, u.Y / a, u.Z / a}
 }
-
 
 func (u Vector) Refract(normal Vector, ni_over_nt float64) (bool, Vector) {
 	uv := u.Normalise()
@@ -77,7 +73,7 @@ func (u Vector) Refract(normal Vector, ni_over_nt float64) (bool, Vector) {
 	vdotn := uv.DotProduct(un)
 
 	// 1 - (n1/n2)^2 [1-(v.n)^2]
-	discriminant := 1 - (ni_over_nt * ni_over_nt *(1-vdotn*vdotn))
+	discriminant := 1 - (ni_over_nt * ni_over_nt * (1 - vdotn*vdotn))
 
 	if discriminant > 0 { // we have refraction
 		// n1/n2 (v - (v.n)N) - rt(discriminant) N

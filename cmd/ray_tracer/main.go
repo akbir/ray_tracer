@@ -14,30 +14,30 @@ const (
 	ns = 200
 )
 
-func createWorld() (*p.World, *p.Camera){
+func createWorld() (*p.World, *p.Camera) {
 	// world items
 	camera := p.NewCamera()
 	world := p.World{}
 
 	floor := p.Sphere{
-		Center: p.Vector{0, -100.5, -1},
-		Radius: 100,
+		Center:   p.Vector{0, -100.5, -1},
+		Radius:   100,
 		Material: p.Lambertian{C: p.Vector{0.8, 0.8, 0}}}
 
 	sphere1 := p.Sphere{
-		Center: p.Vector{-0.75, 0, -1.5},
-		Radius: 0.5,
+		Center:   p.Vector{-0.75, 0, -1.5},
+		Radius:   0.5,
 		Material: p.Lambertian{C: p.Vector{0.8, 0.3, 0}}}
 
 	sphereRight := p.Sphere{
-		Center: p.Vector{0.75, 0, -1.5},
-		Radius: 0.5,
+		Center:   p.Vector{0.75, 0, -1.5},
+		Radius:   0.5,
 		Material: p.Metal{C: p.Vector{0.8, 0.6, 0.3}, Fuzz: 0.15}}
 
 	glass := p.Sphere{
-		Center: p.Vector{0, 0, -1},
-		Radius: 0.5,
-		Material: p.Dielectric{C:p.Vector{0.9, 0.9, 0.9}, RefractiveIndex:1.5}}
+		Center:   p.Vector{0, 0, -1},
+		Radius:   0.5,
+		Material: p.Dielectric{C: p.Vector{0.9, 0.9, 0.9}, RefractiveIndex: 1.5}}
 
 	world.Add(&sphere1)
 	world.Add(&glass)
@@ -46,8 +46,6 @@ func createWorld() (*p.World, *p.Camera){
 
 	return &world, camera
 }
-
-
 
 func main() {
 	start := time.Now()

@@ -5,7 +5,6 @@ import (
 	"strings"
 )
 
-
 func ProgressBar(ch <-chan int, rows int) {
 	fmt.Println()
 	for i := 1; i <= rows; i++ {
@@ -17,4 +16,3 @@ func ProgressBar(ch <-chan int, rows int) {
 	}
 	fmt.Println()
 }
-

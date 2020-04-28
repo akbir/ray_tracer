@@ -5,6 +5,7 @@ var verticalUp = Vector{X: 0, Y: 1, Z: 0}
 type Camera struct {
 	lowerLeft, horizontal, vertical, origin Vector
 }
+
 func NewCamera() *Camera {
 	c := new(Camera)
 	c.lowerLeft = Vector{-2.0, -1.0, -1.0}
@@ -31,4 +32,3 @@ func (c *Camera) Direction(position Vector) Vector {
 	//direction = lowerLeft + position
 	return c.lowerLeft.Add(position)
 }
-

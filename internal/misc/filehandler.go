@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func check(e error, s string){
+func check(e error, s string) {
 	if e != nil {
 		fmt.Fprintf(os.Stderr, s, e)
 		os.Exit(1)
@@ -17,7 +17,7 @@ func check(e error, s string){
 func OpenFile() *os.File {
 	// open the file
 	dir, err := os.Getwd()
-	f, err := os.Create(dir+"/image.png")
+	f, err := os.Create(dir + "/image.png")
 	check(err, "Unable to open file")
 	return f
 }

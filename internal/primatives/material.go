@@ -14,7 +14,7 @@ type Lambertian struct {
 	C Vector
 }
 
-func (l Lambertian) Bounce(input Ray, record HitRecord, rand *rand.Rand)(bool, Ray){
+func (l Lambertian) Bounce(input Ray, record HitRecord, rand *rand.Rand) (bool, Ray) {
 	direction := record.Normal.Add(VectorInUnitSphere(rand))
 	return true, Ray{record.Point, direction}
 }
@@ -23,13 +23,12 @@ func (l Lambertian) Color() Vector {
 	return l.C
 }
 
-
 type Metal struct {
 	C    Vector
 	Fuzz float64
 }
 
-func (m Metal) Bounce(input Ray, record HitRecord, rand *rand.Rand)(bool, Ray){
+func (m Metal) Bounce(input Ray, record HitRecord, rand *rand.Rand) (bool, Ray) {
 	direction := input.Direction.Reflect(record.Normal)
 	fuzzed := VectorInUnitSphere(rand).MultiplyScalar(m.Fuzz)
 	bounced_ray := Ray{record.Point, direction.Add(fuzzed)}
@@ -41,18 +40,16 @@ func (m Metal) Color() Vector {
 	return m.C
 }
 
-
 type Dielectric struct {
 	C               Vector
 	RefractiveIndex float64
 }
 
-
 func (d Dielectric) Color() Vector {
 	return d.C
 }
 
-func (d Dielectric) Bounce(input Ray, record HitRecord, rand *rand.Rand) (bool, Ray){
+func (d Dielectric) Bounce(input Ray, record HitRecord, rand *rand.Rand) (bool, Ray) {
 	var outwardNormal Vector
 	var niOverNt, cosine float64
 
@@ -92,8 +89,5 @@ func (d Dielectric) Bounce(input Ray, record HitRecord, rand *rand.Rand) (bool, 
 func (d Dielectric) schlick(cosine float64) float64 {
 	r0 := (1 - d.RefractiveIndex) / (1 + d.RefractiveIndex)
 	r0 = r0 * r0
-	return r0 + (1-r0) * math.Pow(1-cosine, 5)
+	return r0 + (1-r0)*math.Pow(1-cosine, 5)
 }
-
-
-
