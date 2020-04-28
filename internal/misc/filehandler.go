@@ -17,6 +17,7 @@ func check(e error, s string) {
 func OpenFile() *os.File {
 	// open the file
 	dir, err := os.Getwd()
+	check(err, "Unable to find directory")
 	f, err := os.Create(dir + "/image.png")
 	check(err, "Unable to open file")
 	return f

@@ -1,4 +1,4 @@
-package primatives
+package primitives
 
 var verticalUp = Vector{X: 0, Y: 1, Z: 0}
 

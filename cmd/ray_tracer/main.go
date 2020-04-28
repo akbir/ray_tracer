@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"ray_tracer/internal/misc"
-	p "ray_tracer/internal/primatives"
+	p "ray_tracer/internal/primitives"
 	r "ray_tracer/internal/render"
 	"time"
 )

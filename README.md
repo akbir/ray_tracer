@@ -1,4 +1,6 @@
 # Ray Tracer
+
+
 A ray-tracer written in golang.
 
 Roughly following the [Ray Tracing in One Weekend](https://markphelps.me/2016/03/15/writing-a-ray-tracer-in-go/) blog.

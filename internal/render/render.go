@@ -4,7 +4,7 @@ import (
 	"image"
 	"math"
 	"math/rand"
-	p "ray_tracer/internal/primatives"
+	p "ray_tracer/internal/primitives"
 	"runtime"
 	"sync"
 	"time"
