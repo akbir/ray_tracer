@@ -5,7 +5,7 @@ import (
 )
 
 type HitRecord struct {
-	Time float64
+	Time          float64
 	Point, Normal Vector
 	Material
 }

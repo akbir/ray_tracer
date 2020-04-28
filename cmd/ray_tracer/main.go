@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	p "ray_tracer/primatives"
-	"strings"
+	"ray_tracer/internal/misc"
+	p "ray_tracer/internal/primatives"
+	r "ray_tracer/internal/render"
 	"time"
 )
 
@@ -50,7 +51,7 @@ func createWorld() (*p.World, *p.Camera){
 
 func main() {
 	start := time.Now()
-	f := openFile()
+	f := misc.OpenFile()
 	defer f.Close()
 
 	// create world
@@ -58,23 +59,11 @@ func main() {
 
 	// progress bar
 	pgCh := make(chan int, ny)
-	go outputProgress(pgCh, ny)
+	go misc.ProgressBar(pgCh, ny)
 
 	// render image
-	img := render(world, camera, pgCh)
-	writeFile(f, img)
+	img := r.Render(world, camera, nx, ny, ns, pgCh)
+	misc.WriteFile(f, img)
 
 	fmt.Printf("\nDone.\nElapsed: %v\n", time.Since(start))
-}
-
-func outputProgress(ch <-chan int, rows int) {
-	fmt.Println()
-	for i := 1; i <= rows; i++ {
-		<-ch
-		pct := 100 * float64(i) / float64(rows)
-		filled := (80 * i) / rows
-		bar := strings.Repeat("=", filled) + strings.Repeat("-", 80-filled)
-		fmt.Printf("\r[%s] %.2f%%", bar, pct)
-	}
-	fmt.Println()
 }

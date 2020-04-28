@@ -1,10 +1,10 @@
-package main
+package render
 
 import (
 	"image"
 	"math"
 	"math/rand"
-	p "ray_tracer/primatives"
+	p "ray_tracer/internal/primatives"
 	"runtime"
 	"sync"
 	"time"
@@ -39,7 +39,7 @@ func background(r p.Ray) p.Vector {
 	return white.MultiplyScalar(1.0 - t).Add(blue.MultiplyScalar(t))
 }
 
-func sample(world *p.World, camera *p.Camera, i, j int, rand *rand.Rand) p.Vector {
+func sample(world *p.World, camera *p.Camera, i, j, nx, ny, ns int, rand *rand.Rand) p.Vector {
 	rgb:= p.Vector{}
 	for s := 0; s < ns; s++{
 		u := (float64(i) + rand.Float64()) / float64(nx)
@@ -54,7 +54,7 @@ func sample(world *p.World, camera *p.Camera, i, j int, rand *rand.Rand) p.Vecto
 }
 
 
-func render(world *p.World, camera *p.Camera, pgCh chan<- int) *image.NRGBA{
+func Render(world *p.World, camera *p.Camera, nx, ny, ns int, pgCh chan<- int) *image.NRGBA{
 	img := image.NewNRGBA(image.Rect(0, 0, nx, ny))
 
 	// set up worker group
@@ -71,7 +71,7 @@ func render(world *p.World, camera *p.Camera, pgCh chan<- int) *image.NRGBA{
 			for row := offset; row < ny; row +=cpus {
 				for column := 0; column < nx; column++ {
 					// draw pixel
-					rgb := sample(world, camera, column, row, rand)
+					rgb := sample(world, camera, column, row, nx, ny, ns, rand)
 					img.Set(column, ny-row-1, rgb)
 				}
 				// update progress bar
