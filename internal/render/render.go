@@ -1,6 +1,7 @@
 package render
 
 import (
+	"fmt"
 	"image"
 	"math"
 	"math/rand"
@@ -58,6 +59,8 @@ func Render(world *p.World, camera *p.Camera, nx, ny, ns int, pgCh chan<- int) *
 	// set up worker group
 	var wg sync.WaitGroup
 	cpus := 2 * runtime.NumCPU()
+
+	fmt.Printf("Using %v goroutines.\n", cpus)
 
 	for core := 0; core < cpus; core++ {
 		wg.Add(1)
