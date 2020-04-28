@@ -12,7 +12,7 @@ Roughly following the [Ray Tracing in One Weekend](https://markphelps.me/2016/03
 ## Install
 To install, place the package in your `go/src` folder:
 ```shell script
-go get github.com/am-khan/ray_tracer/cmd/ray_tracer
+~ go get github.com/am-khan/ray_tracer/cmd/ray_tracer
 ```
 
 ## Usage
@@ -42,4 +42,4 @@ go build github.com/am-khan/ray_tracer/cmd/ray_tracer
 ```
 
 ## Outputs
-Images are created at `./image.png` with the dimensions and attributes such as aliasing set within `cmd/ray_tracer/main.go` 
+Images are created at `./image.png` with the dimensions and attributes set within `configs/config.json`.
