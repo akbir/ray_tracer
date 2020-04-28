@@ -8,41 +8,35 @@ import (
 	"time"
 )
 
-const (
-	nx = 1600
-	ny = 800
-	ns = 200
-)
-
-func createWorld() (*p.World, *p.Camera) {
+func createWorld(objectConfigs []misc.ObjectConfig) (*p.World, *p.Camera) {
 	// world items
 	camera := p.NewCamera()
 	world := p.World{}
 
-	floor := p.Sphere{
-		Center:   p.Vector{0, -100.5, -1},
-		Radius:   100,
-		Material: p.Lambertian{C: p.Vector{0.8, 0.8, 0}}}
+	for _, config := range objectConfigs {
+		tmp_object := p.Sphere{Radius: config.Radius,
+			Center: p.Vector{
+				config.Center[0], config.Center[1], config.Center[2]}}
 
-	sphere1 := p.Sphere{
-		Center:   p.Vector{-0.75, 0, -1.5},
-		Radius:   0.5,
-		Material: p.Lambertian{C: p.Vector{0.8, 0.3, 0}}}
+		material := config.Material
+		switch material.Material {
+		case "Lambertian":
+			tmp_object.Material = p.Lambertian{
+				C: p.Vector{material.Color[0], material.Color[1], material.Color[2]}}
 
-	sphereRight := p.Sphere{
-		Center:   p.Vector{0.75, 0, -1.5},
-		Radius:   0.5,
-		Material: p.Metal{C: p.Vector{0.8, 0.6, 0.3}, Fuzz: 0.15}}
+		case "Metal":
+			tmp_object.Material = p.Metal{
+				C:    p.Vector{material.Color[0], material.Color[1], material.Color[2]},
+				Fuzz: material.Property}
 
-	glass := p.Sphere{
-		Center:   p.Vector{0, 0, -1},
-		Radius:   0.5,
-		Material: p.Dielectric{C: p.Vector{0.9, 0.9, 0.9}, RefractiveIndex: 1.5}}
+		case "Dielectric":
+			tmp_object.Material = p.Dielectric{
+				C:               p.Vector{material.Color[0], material.Color[1], material.Color[2]},
+				RefractiveIndex: material.Property}
+		}
 
-	world.Add(&sphere1)
-	world.Add(&glass)
-	world.Add(&sphereRight)
-	world.Add(&floor)
+		world.Add(&tmp_object)
+	}
 
 	return &world, camera
 }
@@ -52,15 +46,17 @@ func main() {
 	f := misc.OpenFile()
 	defer f.Close()
 
+	config := misc.GetConfig()
+
 	// create world
-	world, camera := createWorld()
+	world, camera := createWorld(config.World)
 
 	// progress bar
-	pgCh := make(chan int, ny)
-	go misc.ProgressBar(pgCh, ny)
+	pgCh := make(chan int, config.Dimensions.Height)
+	go misc.ProgressBar(pgCh, config.Dimensions.Height)
 
 	// render image
-	img := r.Render(world, camera, nx, ny, ns, pgCh)
+	img := r.Render(world, camera, config.Dimensions.Width, config.Dimensions.Height, config.Dimensions.Aliasing, pgCh)
 	misc.WriteFile(f, img)
 
 	fmt.Printf("\nDone.\nElapsed: %v\n", time.Since(start))
