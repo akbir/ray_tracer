@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"ray_tracer/internal/misc"
-	p "ray_tracer/internal/primitives"
-	r "ray_tracer/internal/render"
+	"github.com/am-khan/ray_tracer/internal/misc"
+	p "github.com/am-khan/ray_tracer/internal/primitives"
+	r "github.com/am-khan/ray_tracer/internal/render"
 	"time"
 )
 

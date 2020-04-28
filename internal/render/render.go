@@ -2,10 +2,10 @@ package render
 
 import (
 	"fmt"
+	p "github.com/am-khan/ray_tracer/internal/primitives"
 	"image"
 	"math"
 	"math/rand"
-	p "ray_tracer/internal/primitives"
 	"runtime"
 	"sync"
 	"time"
