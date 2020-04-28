@@ -12,13 +12,13 @@ Roughly following the [Ray Tracing in One Weekend](https://markphelps.me/2016/03
 ## Install
 To install, place the package in your `go/src` folder:
 ```shell script
-go install ray_tracer
+go get github.com/am-khan/ray_tracer/cmd/ray_tracer
 ```
 
 ## Usage
 To run (with build):
 ```shell script
-~ go run cmd/ray_tracer/main.go 
+~ ray_tracer
 
 Using 16 goroutines.
 
@@ -37,5 +37,11 @@ Currently, the environment supports spheres, aliasing and 3 types of materials:
 
 To set up a new object, go to `cmd/ray_tracer/main.go` and specify its properties within the `createWorld` method.
 
+Currently you'll need to rebuild the package everytime you change the environment with:
+ 
+ ```shell script
+go build github.com/am-khan/ray_tracer/cmd/ray_tracer
+```
+
 ## Outputs
-Images are output to `./image.png` with the dimensions and attributes such as aliasing set within `cmd/ray_tracer/main.go` 
+Images are created at `./image.png` with the dimensions and attributes such as aliasing set within `cmd/ray_tracer/main.go` 
