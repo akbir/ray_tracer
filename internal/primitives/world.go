@@ -8,7 +8,6 @@ func (w *World) Hit(r Ray, tMin, tMax float64) (bool, HitRecord) {
 	hit_anything := false
 	closest := tMax
 	record := HitRecord{}
-
 	for _, element := range w.Elements {
 		hit, tempRecord := element.Hit(r, tMin, closest)
 		if hit {

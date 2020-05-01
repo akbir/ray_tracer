@@ -43,3 +43,11 @@ go build github.com/am-khan/ray_tracer/cmd/ray_tracer
 
 ## Outputs
 Images are created at `./image.png` with the dimensions and attributes set within `configs/config.json`.
+
+
+## Testing
+To run the unit tests - use the built-in go test runner:  
+
+```shell script
+~ go test ./...
+```
